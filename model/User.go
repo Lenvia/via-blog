@@ -24,9 +24,17 @@ func CheckUser(name string) int {
 	return errmsg.SUCCESS
 }
 
-// CheckUpdateUser 检查更新是否成功
-func CheckUpdateUser() {
-
+// CheckUpdateUser 检查将要更新的用户名是否已经存在
+func CheckUpdateUser(id int, name string) int {
+	var user User
+	db.Select("id = ?", id).Where("username = ?", name).First(&user)
+	if user.ID == uint(id){
+		return errmsg.SUCCESS
+	}
+	if user.ID > 0{
+		return errmsg.ERROR_USERNAME_USED
+	}
+	return errmsg.SUCCESS
 }
 
 // CreateUser 新增用户
