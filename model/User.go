@@ -14,6 +14,18 @@ type User struct {
 	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required, gte=2"`
 }
 
+// BeforeCreate 固定方法
+func (this *User) BeforeCreate (_ *gorm.DB) (err error)  {
+	this.Password = ScryptPw(this.Password)
+	return nil
+}
+
+// BeforeUpdate 固定方法
+func (this *User) BeforeUpdate(_ *gorm.DB) (err error) {
+	this.Password = ScryptPw(this.Password)
+	return nil
+}
+
 // CheckUser 查询用户是否存在
 func CheckUser(name string) int {
 	var user User
@@ -112,18 +124,6 @@ func DeleteUser(id int) int {
 	return errmsg.SUCCESS
 }
 
-// BeforeCreate 固定方法
-func (this *User) BeforeCreate (_ *gorm.DB) (err error)  {
-	this.Password = ScryptPw(this.Password)
-	return nil
-}
-
-// BeforeUpdate 固定方法
-func (this *User) BeforeUpdate(_ *gorm.DB) (err error) {
-	this.Password = ScryptPw(this.Password)
-	return nil
-}
-
 // ScryptPw 生成密码
 func ScryptPw(password string)  string {
 	const cost = 10
@@ -134,10 +134,23 @@ func ScryptPw(password string)  string {
 	return string(HashPW)
 }
 
-// CheckLogin todo 后台登录验证
+// CheckLogin 后台登录验证
 func CheckLogin(username string, password string) (User, int) {
 	var user User
-	//var PasswordErr error
+	var PasswordErr error
+
+	db.Where("username = ?", username).First(&user)
+	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+
+	if user.ID == 0{  // 用户不存在
+		return user, errmsg.ERROR_USER_NOT_EXIST
+	}
+	if PasswordErr != nil{  // 密码不正确
+		return user, errmsg.ERROR_PASSWORD_WRONG
+	}
+	if user.Role != 1{  // 非管理员
+		return user, errmsg.ERROR_USER_NO_RIGHT
+	}
 
 	return user, errmsg.SUCCESS
 }
@@ -145,7 +158,17 @@ func CheckLogin(username string, password string) (User, int) {
 // CheckLoginFront todo 前台登录验证
 func CheckLoginFront(username string, password string) (User, int) {
 	var user User
-	//var PasswordErr error
+	var PasswordErr error
+
+	db.Where("username = ?", username).First(&user)
+	PasswordErr = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+
+	if user.ID == 0{  // 用户不存在
+		return user, errmsg.ERROR_USER_NOT_EXIST
+	}
+	if PasswordErr != nil{  // 密码不正确
+		return user, errmsg.ERROR_PASSWORD_WRONG
+	}
 
 	return user, errmsg.SUCCESS
 }

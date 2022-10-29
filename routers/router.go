@@ -14,6 +14,7 @@ func InitRouter()  {
 
 	/*
 		后台管理路由接口
+		注意：authR 不是说管理员只用这里面的，这个分组是要求中间件验证权限的，管理员也会使用到 router 分组的方法
 	 */
 	// 管理员router，需要加中间件检查权限
 	authR := r.Group("api/v1")
@@ -55,8 +56,11 @@ func InitRouter()  {
 		router.GET("article", v1.GetArticles)
 		router.GET("article/list/:id", v1.GetCateArticles)  // 感觉这里改成 :cid 更好
 		router.GET("article/:id", v1.GetArticle)
+
 		// 登录控制
-		
+		router.POST("login", v1.Login)
+		router.POST("loginfront", v1.LoginFront)
+
 	}
 
 	_ = r.Run(utils.HttpPort)
