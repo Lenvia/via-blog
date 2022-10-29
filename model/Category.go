@@ -2,7 +2,7 @@ package model
 
 import (
 	"gorm.io/gorm"
-	"viaBlog/utils/errmsg"
+	"via-blog/utils/errmsg"
 )
 
 type Category struct {

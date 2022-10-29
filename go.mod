@@ -1,4 +1,4 @@
-module viaBlog
+module via-blog
 
 go 1.19
 

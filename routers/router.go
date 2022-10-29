@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "viaBlog/api/v1"
-	"viaBlog/utils"
+	v1 "via-blog/api/v1"
+	"via-blog/utils"
 )
 
 func InitRouter()  {

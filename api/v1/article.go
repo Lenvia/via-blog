@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-	"viaBlog/model"
-	"viaBlog/utils/errmsg"
+	"via-blog/model"
+	"via-blog/utils/errmsg"
 )
 
 // AddArticle 添加文字

@@ -4,7 +4,7 @@ import (
 	bcrypt "golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"log"
-	"viaBlog/utils/errmsg"
+	"via-blog/utils/errmsg"
 )
 
 type User struct {

@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm/schema"
 	"os"
 	"time"
-	"viaBlog/utils"
+	"via-blog/utils"
 )
 
 var db *gorm.DB

@@ -7,7 +7,7 @@ import (
 	validator "github.com/go-playground/validator/v10"
 	zhTrans "github.com/go-playground/validator/v10/translations/zh"
 	//"reflect"
-	"viaBlog/utils/errmsg"
+	"via-blog/utils/errmsg"
 )
 
 func Validate(data interface{}) (string, int) {

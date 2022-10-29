@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-	"viaBlog/model"
-	"viaBlog/utils/errmsg"
-	"viaBlog/utils/validator"
+	"via-blog/model"
+	"via-blog/utils/errmsg"
+	"via-blog/utils/validator"
 )
 
 // AddUser 添加用户

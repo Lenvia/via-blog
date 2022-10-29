@@ -1,8 +1,8 @@
 package main
 
 import (
-	"viaBlog/model"
-	"viaBlog/routers"
+	"via-blog/model"
+	"via-blog/routers"
 )
 
 func main()  {
