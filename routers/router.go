@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 	v1 "via-blog/api/v1"
+	"via-blog/middleware"
 	"via-blog/utils"
 )
 
@@ -14,10 +15,11 @@ func InitRouter()  {
 
 	/*
 		后台管理路由接口
-		注意：authR 不是说管理员只用这里面的，这个分组是要求中间件验证权限的，管理员也会使用到 router 分组的方法
 	 */
-	// 管理员router，需要加中间件检查权限
+	// 注意：authR 不是区分身份，而是说访问 authR路由下的方法，需要通过额外的中间件验证
 	authR := r.Group("api/v1")
+	// 每个用户登录 都会走另一个分组 router 的登录控制，然后获得token，只有带着token才能访问 authR 分组下的方法
+	authR.Use(middleware.JwtToken())
 	{
 		// 用户模块的接口
 		authR.GET("admin/user", v1.GetUsers)

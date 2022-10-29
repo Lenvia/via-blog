@@ -1,8 +1,11 @@
 package v1
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
+	"via-blog/middleware"
 	"via-blog/model"
 	"via-blog/utils/errmsg"
 )
@@ -18,7 +21,7 @@ func Login(c *gin.Context)  {
 	formData, code = model.CheckLogin(formData.Username, formData.Password)
 
 	if code == errmsg.SUCCESS{
-		// todo 生成 token
+		setToken(c, formData)  // 生成并设置token
 	} else{
 		c.JSON(http.StatusOK, gin.H{
 			"status": code,
@@ -48,5 +51,32 @@ func LoginFront(c *gin.Context)  {
 
 // todo token生成函数
 func setToken(c *gin.Context, user model.User)  {
+	j:= middleware.NewJWT()
+	claims := middleware.MyClaims{
+		Username: user.Username,
+		StandardClaims: jwt.StandardClaims{
+			NotBefore: time.Now().Unix() - 100,
+			ExpiresAt: time.Now().Unix() + 604800,
+			Issuer: "viaBlog",
+		},
+	}
+
+	token, err := j.CreateToken(claims)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"status": errmsg.ERROR,
+			"message": errmsg.GetErrMsg(errmsg.ERROR),
+			"token": token,
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": 200,
+		"data": user.Username,
+		"id": user.ID,
+		"message": errmsg.GetErrMsg(200),
+		"token": token,
+	})
+	return
 
 }
