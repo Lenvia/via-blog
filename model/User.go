@@ -62,6 +62,10 @@ func GetUsers(username string, pageSize int, pageNum int) ([]User, int64){  // �
 	var total int64
 
 	if username != ""{  // 模糊查询
+		db.Select("id, username, role, created_at").Where(
+			"username LIKE ?", username+ "%",).Limit(pageSize).Offset((pageNum-1)*pageSize).Find(&users)
+
+		db.Model(&users).Where("username LIKE ?", username + "%").Count(&total)
 		return users, total
 	}
 	// 否则查找全部，并且只返回部分字段
