@@ -68,7 +68,7 @@ func GetUsers(c *gin.Context) {
 	case pageSize > 100:
 		pageSize = 100
 	case pageSize < 0:
-		pageSize = 0
+		pageSize = 10
 	}
 
 	if pageNum == 0{
@@ -91,7 +91,7 @@ func GetUsers(c *gin.Context) {
 func UpdateUser(c *gin.Context)  {
 	var data model.User
 	id, _ :=strconv.Atoi(c.Param("id"))
-	_ = c.ShouldBind(&data)
+	_ = c.ShouldBindJSON(&data)
 
 	code := model.CheckUpdateUser(id, data.Username)  // 检查将要更新的用户名是否已经存在
 	if code == errmsg.SUCCESS{
