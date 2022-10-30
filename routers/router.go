@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "via-blog/api/v1"
+	"via-blog/api/v1"
 	"via-blog/middleware"
 	"via-blog/utils"
 )
@@ -15,6 +15,7 @@ func InitRouter()  {
 
 	r.Use(middleware.Logger())
 	r.Use(gin.Recovery())
+	r.Use(middleware.Cors())
 
 	/*
 		后台管理路由接口
@@ -46,6 +47,10 @@ func InitRouter()  {
 
 		authR.POST("upload", v1.Upload)// 上传文件
 
+		// 更新个人设置
+		authR.GET("admin/profile/:id", v1.GetProfile)
+		authR.PUT("profile/:id", v1.UpdateProfile)
+
 	}
 
 	router := r.Group("api/v1")
@@ -67,6 +72,9 @@ func InitRouter()  {
 		// 登录控制
 		router.POST("login", v1.Login)
 		router.POST("loginfront", v1.LoginFront)
+
+		// 获取个人设置信息
+		router.GET("profile/:id", v1.GetProfile)
 
 	}
 
