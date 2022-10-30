@@ -41,6 +41,8 @@ func InitRouter()  {
 		authR.PUT("article/:id", v1.UpdateArticle)
 		authR.DELETE("article/id", v1.DeleteArticle)
 
+		authR.POST("upload", v1.Upload)// 上传文件
+
 	}
 
 	router := r.Group("api/v1")
