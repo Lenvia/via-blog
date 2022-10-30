@@ -9,9 +9,12 @@ import (
 
 func InitRouter()  {
 	gin.SetMode(utils.AppMode)
-	//r := gin.New()
-	r:= gin.Default()
 
+	//r:= gin.Default()
+	r := gin.New()
+
+	r.Use(middleware.Logger())
+	r.Use(gin.Recovery())
 
 	/*
 		后台管理路由接口

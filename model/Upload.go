@@ -2,8 +2,8 @@ package model
 
 import (
 	"context"
-	qbox "github.com/qiniu/go-sdk/v7/auth/qbox"
-	storage "github.com/qiniu/go-sdk/v7/storage"
+	"github.com/qiniu/go-sdk/v7/auth/qbox"
+	"github.com/qiniu/go-sdk/v7/storage"
 	"mime/multipart"
 	"via-blog/utils"
 	"via-blog/utils/errmsg"
