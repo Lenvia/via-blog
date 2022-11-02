@@ -28,7 +28,6 @@ message.config({
 Vue.prototype.$message = message
 Vue.prototype.$confirm = Modal.confirm // 对话框
 
-
 Vue.use(Button)
 Vue.use(FormModel)
 Vue.use(Input)

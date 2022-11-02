@@ -3,7 +3,7 @@
     <div class="loginBox">
       <!-- :rules 表单验证; :model 数据绑定 -->
       <a-form-model ref="loginFormRef" :rules="rules" :model="formdata" class="loginForm">
-        <!-- prop 表单验证绑定 -->
+        <!-- prop 表单验证绑定（对应的rule） -->
         <a-form-model-item prop="username">
           <!-- "v-model 具体的数据绑定-->
           <a-input v-model="formdata.username" placeholder="请输入用户名">
@@ -82,7 +82,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .container {
   height: 100%;
@@ -112,4 +111,3 @@ export default {
   justify-content: flex-end;
 }
 </style>
-

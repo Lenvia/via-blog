@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,6 +20,17 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+// router 前置守卫
+router.beforeEach((to, from, next) => {
+  const userToken = window.sessionStorage.getItem('token')
+  if (to.path === '/login') return next()
+  if (!userToken) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
