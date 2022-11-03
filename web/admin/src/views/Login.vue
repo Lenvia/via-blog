@@ -2,7 +2,12 @@
   <div class="container">
     <div class="loginBox">
       <!-- :rules 表单验证; :model 数据绑定 -->
-      <a-form-model ref="loginFormRef" :rules="rules" :model="formdata" class="loginForm">
+      <a-form-model
+        ref="loginFormRef"
+        :rules="rules"
+        :model="formdata"
+        class="loginForm"
+      >
         <!-- prop 表单验证绑定（对应的rule） -->
         <a-form-model-item prop="username">
           <!-- "v-model 具体的数据绑定-->
@@ -45,40 +50,43 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       formdata: {
         username: '',
-        password: ''
+        password: '',
       },
 
       rules: {
         username: [
           { required: true, message: '请输入用户名', tigger: 'blur' },
-          { min: 4, max: 12, message: '用户名必须在4到12个字符之间' }
+          { min: 4, max: 12, message: '用户名必须在4到12个字符之间' },
         ],
         password: [
           { required: true, message: '请输入密码', tigger: 'blur' },
-          { min: 6, max: 20, message: '密码必须在6到20个字符之间' }
-        ]
-      }
+          { min: 6, max: 20, message: '密码必须在6到20个字符之间' },
+        ],
+      },
     }
   },
   methods: {
     // 使用 message 前要先在 ant-ui.js 中设置好 Vue.prototype.$message
-    resetForm () {
+    resetForm() {
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return this.$message.error('输入不合法，请重新输入')
         const { data: res } = await this.$http.post('login', this.formdata)
-        if (res.status !== 200) return this.$message.error(res.message)
+
+        if (res.status !== 200) {
+          return this.$message.error(res.message)
+        }
         window.sessionStorage.setItem('token', res.token)
         this.$router.push('/index')
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

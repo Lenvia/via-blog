@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Admin from '../views/Admin.vue'
+
+const Login = () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
+const Admin = () => import(/* webpackChunkName: "Admin" */ '../views/Admin.vue')
+
+// 页面路由组件
+const Index = () => import(/* webpackChunkName: "Index" */ '../components/admin/Index.vue')
+const Users = () => import(/* webpackChunkName: "Users" */ '../components/user/Users.vue')
 
 Vue.use(VueRouter)
 
@@ -12,9 +17,24 @@ const routes = [
     component: Login
   },
   {
-    path: '/admin',
+    path: '/',
     name: 'admin',
-    component: Admin
+    component: Admin,
+    children: [
+      {
+        path: 'index',
+        component: Index,
+        meta: {
+          title: 'viaBlog 后台管理页面'
+        }
+      }, {
+        path: 'users',
+        component: Users,
+        meta: {
+          title: '用户列表'
+        }
+      }
+    ]
   }
 ]
 
