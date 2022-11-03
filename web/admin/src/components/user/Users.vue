@@ -409,6 +409,8 @@ export default {
       }
       this.userlist = res.data
       this.pagination.total = res.total
+
+      console.log(res)
     },
 
     // 搜索用户

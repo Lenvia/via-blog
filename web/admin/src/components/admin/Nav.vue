@@ -54,7 +54,7 @@
 export default {
   data() {
     return {
-      cpllapsed: false,
+      collapsed: false,
     }
   },
   methods: {

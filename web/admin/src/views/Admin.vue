@@ -10,9 +10,9 @@
         当地址发生改变(包括参数改变)则重新渲染页面(例如动态路由参数的变化） -->
         <router-view :key="$route.fullPath"></router-view>
       </a-layout-content>
-      <a-layout-ooter class="footer">
+      <a-layout-footer class="footer">
         <Footer></Footer>
-      </a-layout-ooter>
+      </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
