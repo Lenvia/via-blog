@@ -46,6 +46,7 @@
          -->
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
+            <!-- 点击后显示编辑框，并请求已有数据 -->
             <a-button
               type="primary"
               icon="edit"
@@ -410,7 +411,7 @@ export default {
       this.userlist = res.data
       this.pagination.total = res.total
 
-      console.log(res)
+      // console.log(res)
     },
 
     // 搜索用户
@@ -524,7 +525,7 @@ export default {
       this.$refs.changePasswordRef.validate(async (valid) => {
         if (!valid) return this.$message.error('参数不符合要求，请重新输入')
         const { data: res } = await this.$http.put(
-          `admin/changepw/${this.changePassword.id}`,
+          `admin/changepwd/${this.changePassword.id}`,
           {
             password: this.changePassword.password,
           }
@@ -532,6 +533,7 @@ export default {
         if (res.status !== 200) return this.$message.error(res.message)
         this.changePasswordVisible = false
         this.$message.success('修改密码成功')
+        this.$refs.changePasswordRef.resetFields()
         this.getUserList()
       })
     },
