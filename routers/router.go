@@ -10,10 +10,10 @@ import (
 func InitRouter()  {
 	gin.SetMode(utils.AppMode)
 
-	//r:= gin.Default()
-	r := gin.New()
+	r:= gin.Default()
+	//r := gin.New()
 
-	r.Use(middleware.Logger())
+	//r.Use(middleware.Logger())
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 
@@ -32,8 +32,8 @@ func InitRouter()  {
 		authR.PUT("admin/changepwd/:id", v1.ChangeUserPassWord) // 管理员才能修改密码
 
 		// 分类模块的接口
-		authR.GET("admin/category", v1.GetCategory)
-		authR.POST("add", v1.AddCategory)
+		authR.GET("admin/category", v1.GetCategories)
+		authR.POST("category/add", v1.AddCategory)
 		authR.PUT("category/:id", v1.UpdateCategory)
 		authR.DELETE("category/:id", v1.DeleteCategory)
 
