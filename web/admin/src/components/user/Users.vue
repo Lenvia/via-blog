@@ -14,6 +14,7 @@
           />
         </a-col>
         <a-col :span="4">
+          <!-- addUserVisible 变量控制添加窗口的显示 -->
           <a-button type="primary" @click="addUserVisible = true"
             >新增</a-button
           >
@@ -203,24 +204,28 @@ export default {
         showTotal: (total) => `共${total}条`,
       },
       userlist: [],
+      // 用于编辑用户
       userInfo: {
         username: '',
         password: '',
         role: 2,
         checkPass: '',
       },
+      // 用于添加用户
       newUser: {
         username: '',
         password: '',
         role: 2,
         checkPass: '',
       },
+      // 用于修改密码
       changePassword: {
         id: 0,
         password: '',
         checkPass: '',
       },
       columns,
+      // 用于获取用户列表/查询
       queryParam: {
         // 请求的参数
         username: '',
@@ -228,6 +233,7 @@ export default {
         pagenum: 1,
       },
       editVisible: false,
+      // 编辑用户的输入验证
       userRules: {
         username: [
           {
@@ -281,6 +287,7 @@ export default {
           },
         ],
       },
+      // 添加用户的输入验证
       addUserRules: {
         username: [
           {
@@ -463,6 +470,7 @@ export default {
     },
     // 新增用户
     addUserOk() {
+      // 把输入的数据绑定到newUser对象，再赋值到请求参数内，向后端发送post请求
       this.$refs.addUserRef.validate(async (valid) => {
         if (!valid) return this.$message.error('参数不符合要求，请重新输入')
         const { data: res } = await this.$http.post('user/add', {
