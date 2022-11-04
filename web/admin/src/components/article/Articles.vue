@@ -175,6 +175,7 @@ export default {
       }
 
       this.Artlist = res.data
+      console.log(res)
       this.pagination.total = res.total
     },
     // 获取分类
@@ -182,6 +183,7 @@ export default {
       const { data: res } = await this.$http.get('category')
       if (res.status !== 200) return this.$message.error(res.message)
       this.Catelist = res.data
+      // console.log(this.Catelist)
       this.pagination.total = res.total
     },
     // 更改分页

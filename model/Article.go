@@ -56,17 +56,16 @@ func GetArticles(pageSize int, pageNum int) ([]Article, int, int64) {
 	var artList []Article
 	var total int64
 
-	err := db.Select("article.id, title, img, created_at, updated_at, `desc` category.name, comment_count, read_count, category.name").Limit(
-		pageSize).Offset((pageNum - 1) * pageSize).Order(
-		"created_at DESC").Joins("category").Find(&artList).Error
+	// 【表名是大小写敏感的】！！！！
+	err := db.Select("article.id, title, img, created_at, updated_at, `desc`, comment_count, read_count, category.name").Limit(
+		pageSize).Offset((pageNum - 1) * pageSize).Order("Created_At DESC").Joins("Category").Find(&artList).Error
 
+	// 单独计数
 	db.Model(&artList).Count(&total)
-
-	if err != nil{
+	if err != nil {
 		return nil, errmsg.ERROR, 0
 	}
 	return artList, errmsg.SUCCESS, total
-
 }
 
 // SearchArticle 搜索文章标题
