@@ -9,6 +9,7 @@ const Index = () => import(/* webpackChunkName: "Index" */ '../components/admin/
 const Users = () => import(/* webpackChunkName: "Users" */ '../components/user/Users.vue')
 const Articles = () => import(/* webpackChunkName: "Articles" */ '../components/article/Articles.vue')
 const Categories = () => import(/* webpackChunkName: "Categories" */ '../components/category/Categories.vue')
+const AddArt = () => import(/* webpackChunkName: "AddArt" */ '../components/article/AddArt.vue')
 
 Vue.use(VueRouter)
 
@@ -41,7 +42,23 @@ const routes = [
         meta: {
           title: '文章列表'
         }
-      }, {
+      },
+      {
+        path: 'addart',
+        component: AddArt,
+        meta: {
+          title: '新增文章'
+        }
+      },
+      {
+        path: 'addart/:id',
+        component: AddArt,
+        meta: {
+          title: '编辑文章'
+        },
+        props: true
+      },
+      {
         path: 'categories',
         component: Categories,
         meta: {
