@@ -7,6 +7,8 @@ const Admin = () => import(/* webpackChunkName: "Admin" */ '../views/Admin.vue')
 // 页面路由组件
 const Index = () => import(/* webpackChunkName: "Index" */ '../components/admin/Index.vue')
 const Users = () => import(/* webpackChunkName: "Users" */ '../components/user/Users.vue')
+const Articles = () => import(/* webpackChunkName: "Articles" */ '../components/article/Articles.vue')
+const Categories = () => import(/* webpackChunkName: "Categories" */ '../components/category/Categories.vue')
 
 Vue.use(VueRouter)
 
@@ -32,6 +34,18 @@ const routes = [
         component: Users,
         meta: {
           title: '用户列表'
+        }
+      }, {
+        path: 'articles',
+        component: Articles,
+        meta: {
+          title: '文章列表'
+        }
+      }, {
+        path: 'categories',
+        component: Categories,
+        meta: {
+          title: '分类列表'
         }
       }
     ]

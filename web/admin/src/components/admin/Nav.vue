@@ -23,7 +23,7 @@
           <a-icon type="form" />
           <span>写文章</span>
         </a-menu-item>
-        <a-menu-item key="artlist">
+        <a-menu-item key="articles">
           <a-icon type="snippets" />
           <span>文章列表</span>
         </a-menu-item>
@@ -32,7 +32,7 @@
         <a-icon type="message" />
         <span>评论管理</span>
       </a-menu-item>
-      <a-menu-item key="catelist">
+      <a-menu-item key="categories">
         <a-icon type="book" />
         <span>分类列表</span>
       </a-menu-item>

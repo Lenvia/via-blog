@@ -88,7 +88,10 @@
           <a-input-password v-model="newUser.password"></a-input-password>
         </a-form-model-item>
         <a-form-model-item has-feedback label="确认密码" prop="checkpass">
-          <a-input-password v-model="newUser.checkpass"></a-input-password>
+          <a-input-password
+            v-model="newUser.checkpass"
+            v-on:keyup.enter="addUserOk"
+          ></a-input-password>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -141,6 +144,7 @@
         <a-form-model-item has-feedback label="确认密码" prop="checkpass">
           <a-input-password
             v-model="changePassword.checkpass"
+            v-on:keyup.enter="changePasswordOk"
           ></a-input-password>
         </a-form-model-item>
       </a-form-model>
