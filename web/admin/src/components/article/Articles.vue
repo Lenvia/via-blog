@@ -175,7 +175,7 @@ export default {
       }
 
       this.Artlist = res.data
-      console.log(res)
+      // console.log(res)
       this.pagination.total = res.total
     },
     // 获取分类
