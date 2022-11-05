@@ -45,11 +45,14 @@ func GetCateArticles(cid int, pageSize int, pageNum int) ([]Article, int, int64)
 func GetArticle(id int) (Article, int) {
 	var art Article
 	err := db.Where("id = ?", id).Preload("Category").First(&art).Error
+	db.Model(&art).Where("id = ?", id).UpdateColumn("read_count", gorm.Expr("read_count + ?", 1))
 	if err != nil {
 		return art, errmsg.ERROR_ART_NOT_EXIST
 	}
 	return art, errmsg.SUCCESS
 }
+
+
 
 // GetArticles 查询文章列表
 func GetArticles(pageSize int, pageNum int) ([]Article, int, int64) {

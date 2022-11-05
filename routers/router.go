@@ -43,7 +43,7 @@ func InitRouter()  {
 		authR.GET("admin/article", v1.GetArticles)
 		authR.POST("article/add", v1.AddArticle)
 		authR.PUT("article/:id", v1.UpdateArticle)
-		authR.DELETE("article/id", v1.DeleteArticle)
+		authR.DELETE("article/:id", v1.DeleteArticle)
 
 		authR.POST("upload", v1.Upload)// 上传文件
 

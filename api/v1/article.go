@@ -50,7 +50,7 @@ func GetCateArticles(c *gin.Context){
 
 // GetArticle 查询单个文章
 func GetArticle(c *gin.Context)  {
-	id, _ := strconv.Atoi(c.Query("id"))
+	id, _ := strconv.Atoi(c.Param("id"))
 	data, code := model.GetArticle(id)
 
 	c.JSON(http.StatusOK, gin.H{
