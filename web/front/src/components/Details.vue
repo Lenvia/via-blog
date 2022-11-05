@@ -136,7 +136,7 @@ export default {
     },
     // 获取评论
     async getCommentList() {
-      const { data: res } = await this.$http.get(`commentfront/${this.id}`, {
+      const { data: res } = await this.$http.get(`comment/front/${this.id}`, {
         params: {
           pagesize: this.queryParam.pagesize,
           pagenum: this.queryParam.pagenum,
@@ -147,7 +147,7 @@ export default {
     },
     // 发送评论
     async pushComment() {
-      const { data: res } = await this.$http.post("addcomment", {
+      const { data: res } = await this.$http.post("comment/add", {
         article_id: parseInt(this.id),
         content: this.comment.content,
         user_id: parseInt(this.headers.user_id),
