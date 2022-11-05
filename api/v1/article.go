@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"via-blog/model"
+	"via-blog/dao"
 	"via-blog/utils/errmsg"
 )
 
@@ -13,7 +14,7 @@ func AddArticle(c *gin.Context)  {
 	var data model.Article
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.CreateArticle(&data)
+	code := dao.CreateArticle(&data)
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
 		"data": data,
@@ -38,7 +39,7 @@ func GetCateArticles(c *gin.Context){
 		pageNum = 1
 	}
 
-	data, code, total := model.GetCateArticles(cid, pageSize, pageNum)
+	data, code, total := dao.GetCateArticles(cid, pageSize, pageNum)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
@@ -50,8 +51,8 @@ func GetCateArticles(c *gin.Context){
 
 // GetArticle 查询单个文章
 func GetArticle(c *gin.Context)  {
-	id, _ := strconv.Atoi(c.Query("id"))
-	data, code := model.GetArticle(id)
+	id, _ := strconv.Atoi(c.Param("id"))
+	data, code := dao.GetArticle(id)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
@@ -79,7 +80,7 @@ func GetArticles(c *gin.Context)  {
 
 	// todo 这里对title 的判断不应该放在 DAO 层吗？
 	if len(title) ==0{
-		data, code, total := model.GetArticles(pageSize, pageNum)
+		data, code, total := dao.GetArticles(pageSize, pageNum)
 		c.JSON(http.StatusOK, gin.H{
 			"status": code,
 			"data": data,
@@ -88,7 +89,7 @@ func GetArticles(c *gin.Context)  {
 		})
 		return
 	}
-	data, code, total := model.SearchArticle(title, pageSize, pageNum)
+	data, code, total := dao.SearchArticle(title, pageSize, pageNum)
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
 		"data": data,
@@ -103,7 +104,7 @@ func UpdateArticle(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.UpdateArticle(id, &data)
+	code := dao.UpdateArticle(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
 		"message": errmsg.GetErrMsg(code),
@@ -114,7 +115,7 @@ func UpdateArticle(c *gin.Context)  {
 func DeleteArticle(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code := model.DeleteArticle(id)
+	code := dao.DeleteArticle(id)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,

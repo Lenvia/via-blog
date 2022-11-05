@@ -43,13 +43,19 @@ func InitRouter()  {
 		authR.GET("admin/article", v1.GetArticles)
 		authR.POST("article/add", v1.AddArticle)
 		authR.PUT("article/:id", v1.UpdateArticle)
-		authR.DELETE("article/id", v1.DeleteArticle)
+		authR.DELETE("article/:id", v1.DeleteArticle)
 
 		authR.POST("upload", v1.Upload)// 上传文件
 
 		// 更新个人设置
 		authR.GET("admin/profile/:id", v1.GetProfile)
 		authR.PUT("profile/:id", v1.UpdateProfile)
+
+		// 评论模块
+		authR.GET("comment", v1.GetComments)
+		authR.DELETE("comment/:id", v1.DeleteComment)
+		authR.PUT("comment/check/:id", v1.CheckComment)
+		authR.PUT("comment/uncheck/:id", v1.UncheckComment)
 
 	}
 
@@ -75,6 +81,12 @@ func InitRouter()  {
 
 		// 获取个人设置信息
 		router.GET("profile/:id", v1.GetProfile)
+
+		// 评论模块
+		router.POST("comment/add", v1.AddComment)
+		router.GET("comment/:id", v1.GetComment)
+		router.GET("comment/front/:id", v1.GetCommentsFront)
+		router.GET("comment/count/:id", v1.GetCommentCount)
 
 	}
 

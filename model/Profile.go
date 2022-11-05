@@ -1,7 +1,5 @@
 package model
 
-import "via-blog/utils/errmsg"
-
 type Profile struct {
 	ID int `gorm:"primaryKey" json:"id"`
 	Name int `gorm:"type:varchar(20)" json:"name"`
@@ -16,25 +14,3 @@ type Profile struct {
 	IcpRecord string `gorm:"type:varchar(200)" json:"icp_record"`
 }
 
-// GetProfile 获取个人信息设置
-func GetProfile(id int) (Profile, int) {
-	var profile Profile
-	err = db.Where("ID = ?", id).First(&profile).Error
-	if err !=nil{
-		return profile, errmsg.ERROR
-	}
-	return profile, errmsg.SUCCESS
-
-}
-
-// UpdateProfile 更新个人信息蛇追
-func UpdateProfile(id int, data *Profile) int {
-	var profile Profile
-	err := db.Model(&profile).Where("ID = ?", id).Updates(&data).Error
-	if err!=nil{
-		return errmsg.ERROR
-	}
-	return errmsg.SUCCESS
-
-
-}

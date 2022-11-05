@@ -36,6 +36,8 @@ func UploadFile(file multipart.File, fileSize int64) (string, int) {
 		return "", errmsg.ERROR
 	}
 	url := ImgUrl + ret.Key
+
+	println(ImgUrl)
 	return url, errmsg.SUCCESS
 }
 

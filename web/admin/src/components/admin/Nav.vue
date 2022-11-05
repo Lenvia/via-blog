@@ -28,7 +28,7 @@
           <span>文章列表</span>
         </a-menu-item>
       </a-sub-menu>
-      <a-menu-item key="commentlist">
+      <a-menu-item key="comments">
         <a-icon type="message" />
         <span>评论管理</span>
       </a-menu-item>

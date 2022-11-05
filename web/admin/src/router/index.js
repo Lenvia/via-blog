@@ -9,6 +9,9 @@ const Index = () => import(/* webpackChunkName: "Index" */ '../components/admin/
 const Users = () => import(/* webpackChunkName: "Users" */ '../components/user/Users.vue')
 const Articles = () => import(/* webpackChunkName: "Articles" */ '../components/article/Articles.vue')
 const Categories = () => import(/* webpackChunkName: "Categories" */ '../components/category/Categories.vue')
+const AddArt = () => import(/* webpackChunkName: "AddArt" */ '../components/article/AddArt.vue')
+const Profile = () => import(/* webpackChunkName: "UserList" */ '../components/user/Profile.vue')
+const Comments = () => import(/* webpackChunkName: "UserList" */ '../components/comment/Comments.vue')
 
 Vue.use(VueRouter)
 
@@ -41,11 +44,41 @@ const routes = [
         meta: {
           title: '文章列表'
         }
-      }, {
+      },
+      {
+        path: 'addart',
+        component: AddArt,
+        meta: {
+          title: '新增文章'
+        }
+      },
+      {
+        path: 'addart/:id',
+        component: AddArt,
+        meta: {
+          title: '编辑文章'
+        },
+        props: true
+      },
+      {
         path: 'categories',
         component: Categories,
         meta: {
           title: '分类列表'
+        }
+      },
+      {
+        path: 'profile',
+        component: Profile,
+        meta: {
+          title: '个人设置'
+        }
+      },
+      {
+        path: 'comments',
+        component: Comments,
+        meta: {
+          title: '评论管理'
         }
       }
     ]

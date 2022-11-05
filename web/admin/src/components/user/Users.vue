@@ -80,6 +80,7 @@
       @cancel="addUserCancel"
       destroyOnClose
     >
+      <!-- v-model是数据绑定；prop是用于校验的key -->
       <a-form-model :model="newUser" :rules="addUserRules" ref="addUserRef">
         <a-form-model-item label="用户名" prop="username">
           <a-input v-model="newUser.username"></a-input>
@@ -443,7 +444,7 @@ export default {
 
     // 更改分页 a-table @change 调用
     handleTableChange(pagination, filters, sorter) {
-      var pager = { ...this.pagination }
+      const pager = { ...this.pagination }
       pager.current = pagination.current
       pager.pageSize = pagination.pageSize
       this.queryParam.pagesize = pagination.pageSize

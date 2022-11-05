@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+	"via-blog/dao"
 	"via-blog/middleware"
 	"via-blog/model"
 	"via-blog/utils/errmsg"
@@ -18,7 +19,7 @@ func Login(c *gin.Context)  {
 	var token string
 	var code int
 	// 返回的formData包含加密后的真实密码，下面c.JSON不传
-	formData, code = model.CheckLogin(formData.Username, formData.Password)
+	formData, code = dao.CheckLogin(formData.Username, formData.Password)
 
 	if code == errmsg.SUCCESS{
 		setToken(c, formData)  // 生成并设置token
@@ -39,7 +40,7 @@ func LoginFront(c *gin.Context)  {
 	_ = c.ShouldBindJSON(&formData)
 
 	var code int
-	formData, code = model.CheckLoginFront(formData.Username, formData.Password)
+	formData, code = dao.CheckLoginFront(formData.Username, formData.Password)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,

@@ -188,7 +188,7 @@ export default {
     },
     // 更改分页
     handleTableChange(pagination, filters, sorter) {
-      var pager = { ...this.pagination }
+      const pager = { ...this.pagination }
       pager.current = pagination.current
       pager.pageSize = pagination.pageSize
       this.queryParam.pagesize = pagination.pageSize
