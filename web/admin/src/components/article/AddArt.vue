@@ -58,7 +58,8 @@
           </a-col>
         </a-row>
         <a-form-model-item label="文章内容" prop="content">
-          <Editor v-model="artInfo.content"></Editor>
+          <!-- <Editor v-model="artInfo.content"></Editor> -->
+          <a-input type="textarea" v-model="artInfo.content"></a-input>
         </a-form-model-item>
 
         <a-form-model-item>
@@ -78,9 +79,9 @@
 
 <script>
 import { Url } from '../../plugin/http'
-import Editor from '../editor/index'
+// import Editor from '../editor/index'
 export default {
-  components: { Editor },
+  // components: { Editor },
   props: ['id'],
   data() {
     return {

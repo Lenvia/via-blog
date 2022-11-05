@@ -32,6 +32,8 @@ func init() {
 	LoadServer(file)  // 服务器配置
 	LoadData(file)  // 数据库配置
 	LoadQiniu(file)  // 云空间配置
+
+	print(QiniuServer)
 }
 
 func LoadServer(file *ini.File) {
