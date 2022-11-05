@@ -33,7 +33,6 @@ func init() {
 	LoadData(file)  // 数据库配置
 	LoadQiniu(file)  // 云空间配置
 
-	print(QiniuServer)
 }
 
 func LoadServer(file *ini.File) {
@@ -55,5 +54,5 @@ func LoadQiniu(file *ini.File) {
 	AccessKey = file.Section("qiniu").Key("AccessKey").String()
 	SecretKey = file.Section("qiniu").Key("SecretKey").String()
 	Bucket = file.Section("qiniu").Key("Bucket").String()
-	QiniuServer = file.Section("qiniu").Key("QiniuSever").String()
+	QiniuServer = file.Section("qiniu").Key("QiniuServer").String()
 }
