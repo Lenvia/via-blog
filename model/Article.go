@@ -75,9 +75,10 @@ func GetArticles(pageSize int, pageNum int) ([]Article, int, int64) {
 func SearchArticle(title string, pageSize int, pageNum int) ([]Article, int, int64) {
 	var artList []Article
 	var total int64
-	err := db.Select("article.id, title, img, created_at, updated_at, `desc` category.name, comment_count, read_count, category.name").Order(
-		"created_at DESC").Joins("category").Where("title LIKE ?", title+"%").Limit(
+	err := db.Select("article.id, title, img, created_at, updated_at, `desc`, category.name, comment_count, read_count, category.name").Order(
+		"created_at DESC").Joins("Category").Where("title LIKE ?", title+"%").Limit(
 		pageSize).Offset((pageNum - 1) * pageSize).Find(&artList).Error
+
 	db.Model(&artList).Where("title LIKE ?", title + "%").Count(&total)
 
 	if err != nil{
