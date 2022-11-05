@@ -10,6 +10,8 @@ const Users = () => import(/* webpackChunkName: "Users" */ '../components/user/U
 const Articles = () => import(/* webpackChunkName: "Articles" */ '../components/article/Articles.vue')
 const Categories = () => import(/* webpackChunkName: "Categories" */ '../components/category/Categories.vue')
 const AddArt = () => import(/* webpackChunkName: "AddArt" */ '../components/article/AddArt.vue')
+const Profile = () => import(/* webpackChunkName: "UserList" */ '../components/user/Profile.vue')
+const Comments = () => import(/* webpackChunkName: "UserList" */ '../components/comment/Comments.vue')
 
 Vue.use(VueRouter)
 
@@ -63,6 +65,20 @@ const routes = [
         component: Categories,
         meta: {
           title: '分类列表'
+        }
+      },
+      {
+        path: 'profile',
+        component: Profile,
+        meta: {
+          title: '个人设置'
+        }
+      },
+      {
+        path: 'comments',
+        component: Comments,
+        meta: {
+          title: '评论管理'
         }
       }
     ]
