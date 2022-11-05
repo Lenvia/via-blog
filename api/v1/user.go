@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"via-blog/dao"
 	"via-blog/model"
 	"via-blog/utils/errmsg"
 	"via-blog/utils/validator"
@@ -28,9 +29,9 @@ func AddUser(c *gin.Context) {
 		return
 	}
 
-	code := model.CheckUser(data.Username) // 查看用户名是否已经存在
+	code := dao.CheckUser(data.Username) // 查看用户名是否已经存在
 	if code == errmsg.SUCCESS{
-		model.CreateUser(&data)
+		dao.CreateUser(&data)
 	}
 	c.JSON(
 		http.StatusOK, gin.H{
@@ -45,7 +46,7 @@ func GetUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var maps = make(map[string]interface{})
 
-	data, code := model.GetUser(id)
+	data, code := dao.GetUser(id)
 	maps["username"] = data.Username
 	maps["role"] = data.Role
 	c.JSON(
@@ -75,7 +76,7 @@ func GetUsers(c *gin.Context) {
 		pageNum = 1
 	}
 
-	data, total := model.GetUsers(username, pageSize, pageNum)
+	data, total := dao.GetUsers(username, pageSize, pageNum)
 	code := errmsg.SUCCESS
 	c.JSON(
 		http.StatusOK, gin.H{
@@ -93,9 +94,9 @@ func UpdateUser(c *gin.Context)  {
 	id, _ :=strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.CheckUpdateUser(id, data.Username)  // 检查将要更新的用户名是否已经存在
+	code := dao.CheckUpdateUser(id, data.Username)  // 检查将要更新的用户名是否已经存在
 	if code == errmsg.SUCCESS{
-		model.UpdateUser(id, &data)
+		dao.UpdateUser(id, &data)
 	}
 	c.JSON(
 		http.StatusOK, gin.H{
@@ -112,7 +113,7 @@ func ChangeUserPassWord(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.ChangePassWord(id, &data)
+	code := dao.ChangePassWord(id, &data)
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status": code,
@@ -124,7 +125,7 @@ func ChangeUserPassWord(c *gin.Context)  {
 // DeleteUser 删除用户
 func DeleteUser(c *gin.Context)  {
 	id, _ := strconv.Atoi(c.Param("id"))
-	code := model.DeleteUser(id)
+	code := dao.DeleteUser(id)
 
 	c.JSON(
 		http.StatusOK, gin.H{

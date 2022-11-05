@@ -1,17 +1,18 @@
-package model
+package dao
 
 import (
 	"fmt"
 	"gorm.io/driver/mysql"
-	gorm "gorm.io/gorm"
+	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"os"
 	"time"
+	"via-blog/model"
 	"via-blog/utils"
 )
 
-var db *gorm.DB
+var DB *gorm.DB
 var err error
 
 func InitDb()  {
@@ -22,7 +23,7 @@ func InitDb()  {
 		utils.DbPort,
 		utils.DbName,
 	)
-	db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
+	DB, err = gorm.Open(mysql.Open(dns), &gorm.Config{
 		// gorm 日志模式: silent
 		Logger: logger.Default.LogMode(logger.Silent),
 		// 外键约束
@@ -40,9 +41,9 @@ func InitDb()  {
 	}
 
 	// 迁移数据表，在没有数据表结构变更的时候，建议注释不执行
-	_ = db.AutoMigrate(&User{}, &Article{}, &Category{})
+	_ = DB.AutoMigrate(&model.User{}, &model.Article{}, &model.Category{})
 
-	sqlDB, _ := db.DB()
+	sqlDB, _ := DB.DB()
 	// 设置连接池中的最大闲置连接数
 	sqlDB.SetMaxIdleConns(10)
 	// 设置数据库最大连接数量

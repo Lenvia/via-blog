@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"via-blog/dao"
 	"via-blog/model"
 	"via-blog/utils/errmsg"
 )
@@ -13,9 +14,9 @@ func AddCategory(c *gin.Context) {
 	var data model.Category
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.CheckCategory(data.Name)
+	code := dao.CheckCategory(data.Name)
 	if code == errmsg.SUCCESS {
-		model.CreateCategory(&data)
+		dao.CreateCategory(&data)
 	}
 
 	c.JSON(
@@ -31,7 +32,7 @@ func AddCategory(c *gin.Context) {
 func GetCategory(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	data, code := model.GetCategory(id)
+	data, code := dao.GetCategory(id)
 
 	c.JSON(
 		http.StatusOK, gin.H{
@@ -58,7 +59,7 @@ func GetCategories(c *gin.Context) {
 		pageNum = 1
 	}
 
-	data, total := model.GetCategories(pageSize, pageNum)
+	data, total := dao.GetCategories(pageSize, pageNum)
 	code := errmsg.SUCCESS
 
 	c.JSON(
@@ -77,9 +78,9 @@ func UpdateCategory(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.CheckCategory(data.Name)  // 查询要更新的类别名是否已经存在
+	code := dao.CheckCategory(data.Name)  // 查询要更新的类别名是否已经存在
 	if code == errmsg.SUCCESS{
-		model.UpdateCategory(id, &data)
+		dao.UpdateCategory(id, &data)
 	}
 	if code == errmsg.ERROR_CATENAME_USED{
 		c.Abort()
@@ -96,7 +97,7 @@ func UpdateCategory(c *gin.Context) {
 // DeleteCategory 删除分类
 func DeleteCategory(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	code := model.DeleteCategory(id)
+	code := dao.DeleteCategory(id)
 
 	c.JSON(
 		http.StatusOK, gin.H{

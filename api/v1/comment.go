@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"via-blog/dao"
 	"strconv"
 	"via-blog/model"
 	"via-blog/utils/errmsg"
@@ -13,7 +14,7 @@ func AddComment(c *gin.Context) {
 	var data model.Comment
 	_ = c.ShouldBindJSON(&data)
 
-	code := model.AddComment(&data)
+	code := dao.AddComment(&data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"data":    data,
@@ -24,7 +25,7 @@ func AddComment(c *gin.Context) {
 // GetComment 获取单个评论信息
 func GetComment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, code := model.GetComment(id)
+	data, code := dao.GetComment(id)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"data":    data,
@@ -35,7 +36,7 @@ func GetComment(c *gin.Context) {
 // DeleteComment 删除评论
 func DeleteComment(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	code := model.DeleteComment(uint(id))
+	code := dao.DeleteComment(uint(id))
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),
@@ -45,7 +46,7 @@ func DeleteComment(c *gin.Context) {
 // GetCommentCount 获取评论数量
 func GetCommentCount(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	total := model.GetCommentCount(id)
+	total := dao.GetCommentCount(id)
 	c.JSON(http.StatusOK, gin.H{
 		"total": total,
 	})
@@ -67,7 +68,7 @@ func GetComments(c *gin.Context) {
 		pageNum = 1
 	}
 
-	data, total, code := model.GetComments(pageSize, pageNum)
+	data, total, code := dao.GetComments(pageSize, pageNum)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
@@ -95,7 +96,7 @@ func GetCommentsFront(c *gin.Context) {
 		pageNum = 1
 	}
 
-	data, total, code := model.GetCommentsFront(id, pageSize, pageNum)
+	data, total, code := dao.GetCommentsFront(id, pageSize, pageNum)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
@@ -112,7 +113,7 @@ func CheckComment(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code := model.CheckComment(id, &data)
+	code := dao.CheckComment(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),
@@ -125,7 +126,7 @@ func UncheckComment(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code := model.UncheckComment(id, &data)
+	code := dao.UncheckComment(id, &data)
 	c.JSON(http.StatusOK, gin.H{
 		"status":  code,
 		"message": errmsg.GetErrMsg(code),
